@@ -1,5 +1,6 @@
 package com.robin.bank.entity;
 
+import com.robin.bank.exceptions.DebetException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,14 @@ import lombok.Setter;
 public class BankAccount {
     int number;
     int amount;
-
+    public void addMoney(int value) {
+        if(value >=0)
+            amount+=value;
+    }
+    public void getMoney(int value) throws DebetException {
+        if( (amount - value) < 0 ) {
+            throw new DebetException();
+        }
+    }
 
 }
