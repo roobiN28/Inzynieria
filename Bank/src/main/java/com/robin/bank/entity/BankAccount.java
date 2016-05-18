@@ -11,7 +11,6 @@ import lombok.Setter;
 @lombok.NoArgsConstructor
 @AllArgsConstructor
 public class BankAccount {
-    int id;
     int number;
     int amount;
 

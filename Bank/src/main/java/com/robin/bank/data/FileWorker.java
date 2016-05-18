@@ -16,12 +16,11 @@ import java.util.stream.Collectors;
 public class FileWorker {
 
 
-    public List<String> getAllLinesFromFile(String path, String filename) {
+    public List<String> getAllLinesFromFile(String filename) {
         try{
-           return Files.lines(Paths.get(filename))
-                   .collect(Collectors.toList());
+           return Files.readAllLines(Paths.get(filename));
         }catch(IOException e){
-            log.error("IOException when reading file: "+filename);
+            log.error("IOException when reading file: "+ filename);
             e.printStackTrace();
         }
         return new ArrayList<String>();
