@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class BankAccountView implements View {
     @Override
-    public void show(List<Object> list) {
+    public void show(List list) {
         System.out.println("------------Lista kont--------------");
         list.forEach(b -> {
             BankAccount bankAccount = (BankAccount) b;

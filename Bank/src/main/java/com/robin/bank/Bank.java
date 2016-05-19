@@ -1,6 +1,7 @@
 package com.robin.bank;
 
 import com.robin.bank.entity.Transaction;
+import com.robin.bank.entity.TransactionState;
 import com.robin.bank.exceptions.DebetException;
 import com.robin.bank.transaction.TransactionMaker;
 
@@ -15,14 +16,22 @@ public class Bank implements TransactionMaker {
     }
 
     private Bank() {
+
     }
 
+
+
     @Override
-    public void makeTransaction(Transaction transaction) {
+    public void makeTransaction(Transaction transaction) throws DebetException {
         try {
             transaction.getFrom().getMoney(transaction.getAmount());
-        } catch (DebetException e) {
+            transaction.getTo().addMoney(transaction.getAmount());
+            transaction.setTransactionState(TransactionState.SUCCESS);
+            System.out.println();
 
+
+        } catch (DebetException e) {
+            throw new DebetException();
         }
     }
 }

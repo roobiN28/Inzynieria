@@ -19,27 +19,32 @@ public class BankAccountRepositoryImpl implements BankAccountRepository  {
     @Getter
     @Setter
     FileWorker fileWorker = new FileWorker();
+
+    List<BankAccount> data = null;
+
     String path = "src/main/resources/bank_account_data";
     @Override
     public List<BankAccount> getAllBankAccount() {
-        List<String> input_data = fileWorker.getAllLinesFromFile(path);
-        List<BankAccount> bankAccounts = new ArrayList<>();
-        input_data
-                .stream()
-                .forEach(line -> {
-                    BankAccount account = new BankAccount();
-                    String[] list = line.split(" ");
-                    bankAccounts.add(new BankAccount(Integer.parseInt(list[0]),Integer.parseInt(list[1])));
-                });
-        return bankAccounts;
+        if(data == null) {
+            List<String> input_data = fileWorker.getAllLinesFromFile(path);
+            data = new ArrayList<>();
+            input_data
+                    .stream()
+                    .forEach(line -> {
+                        BankAccount account = new BankAccount();
+                        String[] list = line.split(" ");
+                        data.add(new BankAccount(Integer.parseInt(list[0]), Integer.parseInt(list[1])));
+                    });
+        }
+        return data;
     }
 
     @Override
     public BankAccount findBankAccountByNumber(int number) {
-        return getAllBankAccount()
-                .stream()
-                .filter(bankAccount -> bankAccount.getNumber() == number)
-                .collect(Collectors.toList()).get(0);
-
+        for (BankAccount b: getAllBankAccount() ) {
+            if(b.getNumber() == number)
+                return b;
+        }
+        return null;
     }
 }

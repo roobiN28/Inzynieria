@@ -34,6 +34,7 @@ public class Transaction {
                 "from=" + from.getNumber() +
                 ", to=" + to.getNumber() +
                 ", amount=" + amount +
+                " "+transactionState.toString()+
                 '}';
     }
 

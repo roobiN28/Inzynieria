@@ -1,0 +1,6 @@
+Konkurs
+Mamy tablicę wartości całkowitych. za odpowiednie ich ułożenie dostajemy nagrody:
+- jeżeli wszystkie są nieparzyste - 50zł
+- jeżeli pierwsza i ostatnia są równe 0 - 100zł
+- jeżeli jest ich więcej niż 7 - 150zł
+Na razie są ustalone tylko takie zasady, ale możliwe, że będą wymyślane kolejne - każda zasada jest niezależna od drugiej, zatem należy skorzystać ze wzorca dekorator
