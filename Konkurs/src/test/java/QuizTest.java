@@ -6,16 +6,16 @@ import static org.junit.Assert.*;
 /**
  * Created by ${Robert} on 19.05.2016.
  */
-public class KonkursTest {
+public class QuizTest {
 
     @Test
     public void premiaZaNieparzyste () {
         int[] possitive = {5,7,9};
         int[] negative = {1,5,8,9};
-        Konkurs konkurs = new Konkurs();
-        BonusDecorator premia = new BonusOdds(konkurs);
-        assertTrue(konkurs.execute(possitive) == 0);
-        assertTrue(konkurs.execute(negative) == 0);
+        Quiz quiz = new Quiz();
+        BonusDecorator premia = new BonusOdds(quiz);
+        assertTrue(quiz.execute(possitive) == 0);
+        assertTrue(quiz.execute(negative) == 0);
         assertTrue(premia.execute(possitive) == 50);
         assertTrue(premia.execute(negative) == 0);
 
@@ -28,8 +28,8 @@ public class KonkursTest {
         int[] negative = {1,5,8,6};
         int[] negative1 = {0,1};
         int[] negative2 = {1,5,6,0};
-        Konkurs konkurs = new Konkurs();
-        BonusDecorator bonus = new BonusForFirstAndLastZero(konkurs);
+        Quiz quiz = new Quiz();
+        BonusDecorator bonus = new BonusForFirstAndLastZero(quiz);
         assertTrue(bonus.execute(possitive) == 100);
         assertTrue(bonus.execute(possitive1) == 100);
         assertTrue(bonus.execute(possitive2) == 100);
@@ -44,8 +44,8 @@ public class KonkursTest {
         int[] possitive = {1,2,3,4,5,6,7,8};
 
 
-        Konkurs konkurs = new Konkurs();
-        BonusDecorator bonus = new BonusMoreThen7(konkurs);
+        Quiz quiz = new Quiz();
+        BonusDecorator bonus = new BonusMoreThen7(quiz);
         assertTrue(bonus.execute(negative) == 0);
         assertTrue(bonus.execute(negative1) == 0);
         assertTrue(bonus.execute(possitive) == 150);
@@ -58,7 +58,7 @@ public class KonkursTest {
 
         BonusDecorator bonus = new BonusForFirstAndLastZero(
             new BonusMoreThen7(
-                new BonusOdds(new Konkurs())
+                new BonusOdds(new Quiz())
             )
         );
         assertTrue(bonus.execute(first) == 250);
