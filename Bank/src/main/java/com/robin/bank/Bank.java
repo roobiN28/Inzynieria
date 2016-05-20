@@ -25,9 +25,12 @@ public class Bank {
     List<Transaction> transactionQueue;
     @Getter
     List<Transaction> unhandledTransactions;
+
+    TransactionMaker transactionMaker;
     private Bank() {
         transactionQueue = new ArrayList<>();
         unhandledTransactions = new ArrayList<>();
+        transactionMaker = new TransactionMakerImpl();
     }
 
     public void makeAllCurrentTransaction() {
@@ -36,7 +39,7 @@ public class Bank {
             Transaction current = transactionQueue.remove(0);
             try {
 
-                makeTransaction(current);
+                transactionMaker.execute(current);
             } catch (DebetException e) {
                 if(current.getTransactionState() == TransactionState.READY) {
                     transactionQueue.add(current);
@@ -53,16 +56,5 @@ public class Bank {
 
     }
 
-    private void makeTransaction(Transaction t) throws DebetException {
-        try {
-            int money = t.getAmount();
-            t.getFrom().getMoney(money);
-            t.getTo().addMoney(money);
-            t.setTransactionState(TransactionState.SUCCESS);
-        } catch (DebetException e) {
-            log.debug("Nie udalo sie wykonac tranzakcji: "+t.toString());
-            throw e;
-        }
-    }
 
 }
