@@ -14,8 +14,8 @@ public class ViewTransactions implements View {
         System.out.println("----------------- TRANZAKCJE -----------------");
         list.forEach(e -> {
             Transaction t = (Transaction) e;
-            System.out.println("From: "+ t.getFrom().getNumber() + " to: "+t.getFrom().getNumber()+ " amount: "+t.getAmount());
+            System.out.println("From: "+ t.getFrom().getNumber() + " to: "+t.getTo().getNumber()+ " amount: "+t.getAmount());
         });
-        System.out.printf("");
+        System.out.println();
     }
 }

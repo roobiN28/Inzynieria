@@ -6,7 +6,11 @@
 
     <groupId>com.robin</groupId>
     <artifactId>com.robin</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>moduł</module>
+    </modules>
     <dependencies>
         <!-- http://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>

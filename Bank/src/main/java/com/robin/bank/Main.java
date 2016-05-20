@@ -25,44 +25,21 @@ public class Main {
     public static void main(String[] args) {
 
         Bank bank = Bank.getInstance();
-        List<BankAccount> bankAccounts;
-        List<Transaction> transactions;
-        BankAccountView bankAccountView = new BankAccountView();
 
+        new BankAccountView().show(
+                BankAccountRepositoryImpl.getInstance().getAllBankAccount()
+        );
 
-        TransactionRepository transactionRepo = new TransactionRepositoryImpl();
-        BankAccountRepository bankAccountRepository = new BankAccountRepositoryImpl();
-        BankAccount ac = bankAccountRepository.findBankAccountByNumber(33333333);
+        new ViewTransactions().show(
+                TransactionRepositoryImpl.getInstance().getAllTransactions()
+        );
 
-        System.out.println(ac.getAmount() + "\n\n\n\n\n");
+        bank.makeAllCurrentTransaction();
 
-        bankAccounts = bankAccountRepository.getAllBankAccount();
-        transactions = transactionRepo.getAllTransactions();
+        new BankAccountView().show(
+                BankAccountRepositoryImpl.getInstance().getAllBankAccount()
+        );
 
-        bankAccountView.show(bankAccountRepository.getAllBankAccount());
-        new ViewTransactions().show(transactionRepo.getAllTransactions());
-
-        Queue<Transaction> queue = new ArrayDeque<>();
-        transactions.forEach(queue::add);
-
-        while(!queue.isEmpty()) {
-            Transaction transaction = queue.poll();
-            try {
-                bank.makeTransaction(transaction);
-                new TransactionSuccessView().show(transaction);
-
-            } catch (DebetException e) {
-                System.out.println("Nie mozna wykonac tranzakcji");
-                if(transaction.getTransactionState() == TransactionState.READY) {
-                    log.debug("wrzucam na koniec kolejki");
-                    queue.add(transaction);
-                } else if(transaction.getTransactionState() == TransactionState.ERROR) {
-                    System.out.println("Dane:" + transaction.toString());
-                }
-            }
-        }
-
-        new BankAccountView().show(bankAccounts);
 
 
     }

@@ -20,6 +20,14 @@ public class BankAccountRepositoryImpl implements BankAccountRepository  {
     @Setter
     FileWorker fileWorker = new FileWorker();
 
+    private static BankAccountRepository instance = new BankAccountRepositoryImpl();
+    private BankAccountRepositoryImpl() {};
+    public static BankAccountRepository getInstance() {
+        return instance;
+    }
+
+
+
     List<BankAccount> data = null;
 
     String path = "src/main/resources/bank_account_data";
