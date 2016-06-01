@@ -2,9 +2,12 @@ package com.robin.bank.data;
 
 import lombok.extern.log4j.Log4j;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,5 +27,14 @@ public class FileWorker {
             e.printStackTrace();
         }
         return new ArrayList<String>();
+    }
+    public void AddOnEndOfLine(String text, String filename) {
+        try {
+            FileWriter fw = new FileWriter(filename,true);
+            fw.write(text);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
